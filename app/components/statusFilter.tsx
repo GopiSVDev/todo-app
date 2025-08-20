@@ -11,7 +11,19 @@ const StatusFilter = ({ filter, setFilter }: StatusFilterProps) => {
   const statuses: Filter[] = ["all", "completed", "pending"];
 
   return (
-    <Paper withBorder shadow="xs" p="xs" my="md" radius="xl" bg="gray.0">
+    <Paper
+      withBorder
+      shadow="xs"
+      p="xs"
+      my="md"
+      radius="md"
+      bg="gray.0"
+      style={{
+        position: "sticky",
+        top: 60,
+        zIndex: 1000,
+      }}
+    >
       <Flex justify="center">
         <Group gap="sm">
           {statuses.map((status) => (
