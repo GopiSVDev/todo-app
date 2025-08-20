@@ -4,21 +4,24 @@ type Filter = "all" | "completed" | "pending";
 
 type StatusFilterProps = {
   filter: Filter;
-  setFilter: (status: "all" | "completed" | "pending") => void;
+  setFilter: (status: Filter) => void;
 };
 
 const StatusFilter = ({ filter, setFilter }: StatusFilterProps) => {
   const statuses: Filter[] = ["all", "completed", "pending"];
 
   return (
-    <Paper withBorder shadow="sm" p="sm" my="md">
+    <Paper withBorder shadow="xs" p="xs" my="md" radius="xl" bg="gray.0">
       <Flex justify="center">
-        <Group gap="md">
+        <Group gap="sm">
           {statuses.map((status) => (
             <Button
               key={status}
-              variant={filter === status ? "filled" : "outline"}
+              variant={filter === status ? "filled" : "light"}
               color={filter === status ? "blue" : "gray"}
+              radius="xl"
+              size="sm"
+              fw={500}
               onClick={() => setFilter(status)}
             >
               {status.charAt(0).toUpperCase() + status.slice(1)}

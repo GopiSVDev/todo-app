@@ -1,5 +1,5 @@
-import { Form, useNavigate } from "react-router";
 import type { Todo } from "~/types/todo";
+import { Form, useNavigate } from "react-router";
 import { formatDateForInput } from "~/utils/helper";
 import {
   TextInput,
@@ -10,6 +10,7 @@ import {
   Stack,
   Group,
 } from "@mantine/core";
+import { ArrowLeft } from "lucide-react";
 
 type TodoFormProps = {
   todo?: Todo;
@@ -20,15 +21,20 @@ const TodoForm = ({ todo, error }: TodoFormProps) => {
   const navigate = useNavigate();
 
   return (
-    <Box mx="auto" my="lg" px="md" py="md" maw={500} bdrs="md" bg="white">
+    <Box mx="auto" my="lg" px="lg" py="md" maw={500} bdrs="md" bg="white">
       <Group mb="md">
-        <Button variant="subtle" onClick={() => navigate(-1)}>
+        <Button
+          variant="subtle"
+          radius="xl"
+          leftSection={<ArrowLeft size={16} />}
+          onClick={() => navigate(-1)}
+        >
           Back
         </Button>
       </Group>
 
       {error && (
-        <Alert color="red" mb="md">
+        <Alert color="red" mb="md" radius="md" variant="light">
           {error}
         </Alert>
       )}
@@ -45,6 +51,9 @@ const TodoForm = ({ todo, error }: TodoFormProps) => {
           <Textarea
             label="Description"
             name="description"
+            autosize
+            minRows={3}
+            maxRows={10}
             defaultValue={todo?.description || ""}
           />
 
@@ -57,7 +66,7 @@ const TodoForm = ({ todo, error }: TodoFormProps) => {
             min={formatDateForInput(new Date())}
           />
 
-          <Button type="submit" fullWidth>
+          <Button type="submit" fullWidth radius="xl">
             {todo ? "Save Changes" : "Create Todo"}
           </Button>
         </Stack>

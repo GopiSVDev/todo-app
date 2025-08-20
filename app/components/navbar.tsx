@@ -1,5 +1,6 @@
-import { TextInput, Button, Group, Box, Title, Flex } from "@mantine/core";
 import { useNavigate } from "react-router";
+import { TextInput, Button, Title, Flex, Box } from "@mantine/core";
+import { Search } from "lucide-react";
 
 type NavbarProps = {
   query: string;
@@ -10,37 +11,55 @@ const Navbar = ({ query, setQuery }: NavbarProps) => {
   const navigate = useNavigate();
 
   return (
-    <Flex
-      align="center"
-      justify="space-between"
-      px="md"
+    <Box
+      component="header"
+      bg="blue.6"
+      px="lg"
       py="sm"
       style={{
-        borderBottom: "1px solid #e0e0e0",
-        backgroundColor: "#fff",
         position: "sticky",
         top: 0,
         zIndex: 1000,
       }}
     >
-      <Title
-        order={4}
-        style={{ cursor: "pointer" }}
-        onClick={() => navigate("/")}
-      >
-        Todo App
-      </Title>
+      <Flex align="center" justify="space-between" gap="md">
+        <Title
+          order={3}
+          c="white"
+          style={{ cursor: "pointer", letterSpacing: "-0.5px" }}
+          onClick={() => navigate("/")}
+        >
+          Todo<span style={{ fontWeight: 300 }}>App</span>
+        </Title>
 
-      <TextInput
-        placeholder="Search todo"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        flex={1}
-        mx="md"
-      />
+        <TextInput
+          placeholder="Search todos..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          leftSection={<Search size={16} />}
+          flex={1}
+          radius="xl"
+          size="sm"
+          styles={{
+            input: {
+              backgroundColor: "white",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+            },
+          }}
+        />
 
-      <Button onClick={() => navigate("/create")}>Create</Button>
-    </Flex>
+        <Button
+          onClick={() => navigate("/create")}
+          radius="xl"
+          size="sm"
+          variant="white"
+          color="blue"
+          fw={500}
+        >
+          Create
+        </Button>
+      </Flex>
+    </Box>
   );
 };
 
