@@ -1,14 +1,16 @@
+import { useNavigate } from "react-router";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <div id="navbar">
-      <div>Logo</div>
-      <div id="filter-group">
-        <button>All</button>
-        <button>Completed</button>
-        <button>Pending</button>
-      </div>
+      <div>Todo</div>
       <div>
         <input type="text" placeholder="search todo" />
+      </div>
+      <div>
+        <button onClick={() => navigate("/create")}>Create</button>
       </div>
     </div>
   );

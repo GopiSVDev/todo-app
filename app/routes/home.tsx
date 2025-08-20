@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import Navbar from "../components/navbar";
 import TodoList from "../components/todoList";
-import { todos } from "~/types/todo";
+import StatusFilter from "~/components/statusFilter";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,10 +10,21 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+import { getTodos } from "~/utils/todoUtils";
+import type { Todo } from "~/types/todo";
+
+export async function clientLoader() {
+  const todos: Todo[] = getTodos();
+  return todos;
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const todos: Todo[] = loaderData ?? [];
+
   return (
     <div id="wrapper">
       <Navbar />
+      <StatusFilter />
       <TodoList todos={todos} />
     </div>
   );

@@ -4,9 +4,11 @@ import TodoItem from "./todoItem";
 const TodoList = ({ todos }: { todos: Todo[] }) => {
   return (
     <div id="todo-list">
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      {todos.length === 0 ? (
+        <p>No Todos Yet</p>
+      ) : (
+        todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+      )}
     </div>
   );
 };
