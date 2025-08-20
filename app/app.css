@@ -6,8 +6,6 @@
 
 html,
 body {
-  background-color: #030712 !important;
-  color: white !important;
   min-height: 100vh;
   width: 100%;
 }
@@ -15,38 +13,4 @@ body {
 #wrapper {
   max-width: 1440px;
   margin-inline: auto;
-}
-
-#navbar {
-  display: flex;
-  justify-content: space-around;
-  padding-block: 24px;
-  padding-inline: 32px;
-  border-bottom: 1px solid red;
-}
-
-#navbar input {
-  border: 1px solid red;
-}
-
-#filter-group {
-  max-width: 500px;
-  display: flex;
-  justify-content: space-around;
-  gap: 24px;
-  margin-inline: auto;
-}
-
-#todo-item {
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#todo-item .title {
-  margin: 0;
 }

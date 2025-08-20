@@ -1,3 +1,4 @@
+import { Stack, Text } from "@mantine/core";
 import type { Todo } from "~/types/todo";
 import TodoItem from "./todoItem";
 
@@ -7,13 +8,15 @@ const TodoList = ({ todos }: { todos: Todo[] }) => {
   );
 
   return (
-    <div id="todo-list">
+    <Stack gap="md" align="center">
       {todos.length === 0 ? (
-        <p>No Todos Yet</p>
+        <Text ta="center" c="dimmed">
+          No Todos
+        </Text>
       ) : (
         sortedTodos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       )}
-    </div>
+    </Stack>
   );
 };
 

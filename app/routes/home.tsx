@@ -1,7 +1,13 @@
+import { useState } from "react";
+
 import type { Route } from "./+types/home";
+import type { Todo } from "~/types/todo";
+
 import Navbar from "../components/navbar";
 import TodoList from "../components/todoList";
 import StatusFilter from "~/components/statusFilter";
+
+import { getTodos } from "~/utils/todoUtils";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,13 +16,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-import { getTodos } from "~/utils/todoUtils";
-import type { Todo } from "~/types/todo";
-import { useState } from "react";
-
 export async function clientLoader() {
-  const todos: Todo[] = getTodos();
-  return todos;
+  return getTodos();
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -35,10 +36,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     .filter((todo) => todo.title.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div id="wrapper">
+    <main id="wrapper">
       <Navbar query={query} setQuery={setQuery} />
       <StatusFilter filter={filter} setFilter={setFilter} />
       <TodoList todos={filteredTodos} />
-    </div>
+    </main>
   );
 }

@@ -1,6 +1,15 @@
-import { Form } from "react-router";
+import { Form, useNavigate } from "react-router";
 import type { Todo } from "~/types/todo";
 import { formatDateForInput } from "~/utils/helper";
+import {
+  TextInput,
+  Textarea,
+  Button,
+  Box,
+  Alert,
+  Stack,
+  Group,
+} from "@mantine/core";
 
 type TodoFormProps = {
   todo?: Todo;
@@ -8,49 +17,52 @@ type TodoFormProps = {
 };
 
 const TodoForm = ({ todo, error }: TodoFormProps) => {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <Box mx="auto" my="lg" px="md" py="md" maw={500} bdrs="md" bg="white">
+      <Group mb="md">
+        <Button variant="subtle" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+      </Group>
+
+      {error && (
+        <Alert color="red" mb="md">
+          {error}
+        </Alert>
+      )}
 
       <Form method="post">
-        <div>
-          <label>
-            Title:
-            <input
-              type="text"
-              name="title"
-              defaultValue={todo?.title || ""}
-              required
-            />
-          </label>
-        </div>
+        <Stack gap="sm">
+          <TextInput
+            label="Title"
+            name="title"
+            defaultValue={todo?.title || ""}
+            required
+          />
 
-        <div>
-          <label>
-            Description:
-            <textarea
-              name="description"
-              defaultValue={todo?.description || ""}
-            />
-          </label>
-        </div>
+          <Textarea
+            label="Description"
+            name="description"
+            defaultValue={todo?.description || ""}
+          />
 
-        <div>
-          <label>
-            Due Date:
-            <input
-              type="date"
-              name="dueAt"
-              defaultValue={todo ? formatDateForInput(todo.dueAt) : ""}
-              required
-              min={formatDateForInput(new Date())}
-            />
-          </label>
-        </div>
+          <TextInput
+            label="Due Date"
+            name="dueAt"
+            type="date"
+            defaultValue={todo ? formatDateForInput(todo.dueAt) : ""}
+            required
+            min={formatDateForInput(new Date())}
+          />
 
-        <button type="submit">{todo ? "Save Changes" : "Create Todo"}</button>
+          <Button type="submit" fullWidth>
+            {todo ? "Save Changes" : "Create Todo"}
+          </Button>
+        </Stack>
       </Form>
-    </div>
+    </Box>
   );
 };
 
