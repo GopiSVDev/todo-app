@@ -1,13 +1,20 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import Navbar from "../components/navbar";
+import TodoList from "../components/todoList";
+import { todos } from "~/types/todo";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Todo App" },
+    { name: "description", content: "Create todo" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <div id="wrapper">
+      <Navbar />
+      <TodoList todos={todos} />
+    </div>
+  );
 }
