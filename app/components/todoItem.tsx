@@ -1,10 +1,12 @@
+import { Form, Link } from "react-router";
 import type { Todo } from "~/types/todo";
+import { formatDate } from "~/utils/helper";
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
-  const { title, description, createdAt, status, dueAt } = todo;
+  const { id, title, description, createdAt, status, dueAt } = todo;
 
-  const createdDate = new Date(createdAt).toLocaleDateString();
-  const dueDate = new Date(dueAt).toLocaleDateString();
+  const createdDate = formatDate(createdAt);
+  const dueDate = formatDate(dueAt);
 
   const statusColors: Record<string, string> = {
     pending: "orange",
@@ -35,12 +37,13 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       </div>
 
       <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
-        <button style={{ flex: 1, padding: "6px 12px", cursor: "pointer" }}>
-          Edit
-        </button>
-        <button style={{ flex: 1, padding: "6px 12px", cursor: "pointer" }}>
-          Delete
-        </button>
+        <Link to={`/todos/${id}/edit`}>
+          <button>Edit</button>
+        </Link>
+
+        <Form method="post" action={`/todos/${id}/delete`}>
+          <button>Delete</button>
+        </Form>
       </div>
     </div>
   );

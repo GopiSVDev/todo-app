@@ -10,4 +10,5 @@ export default [
 
   route("create", "routes/create.tsx"),
   route("todos/:id/edit", "routes/todos.$id.edit.tsx"),
+  route("todos/:id/delete", "routes/todos.$id.delete.tsx"),
 ] satisfies RouteConfig;
