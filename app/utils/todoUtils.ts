@@ -39,6 +39,17 @@ export const updateTodo = (id: string, updates: Partial<Todo>) => {
   saveTodos(todos);
 };
 
+export const updateTodoStatus = (id: string, status: Todo["status"]) => {
+  const todos = getTodos();
+  const index = todos.findIndex((t) => t.id === id);
+  if (index !== -1) {
+    todos[index].status = status;
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+
+  saveTodos(todos);
+};
+
 export const deleteTodo = (id: string) => {
   const todos = getTodos().filter((todo) => todo.id !== id);
   saveTodos(todos);

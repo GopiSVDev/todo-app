@@ -10,7 +10,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 
   const statusColors: Record<string, string> = {
     pending: "orange",
-    inProgress: "blue",
+
     completed: "green",
   };
 
@@ -35,6 +35,15 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           {status}
         </span>
       </div>
+      <Form method="post" action={`/todos/${id}/edit`}>
+        <button
+          type="submit"
+          name="status"
+          value={status === "pending" ? "completed" : "pending"}
+        >
+          Mark as {status === "pending" ? "Completed" : "Pending"}
+        </button>
+      </Form>
 
       <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
         <Link to={`/todos/${id}/edit`}>

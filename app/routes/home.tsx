@@ -12,6 +12,7 @@ export function meta({}: Route.MetaArgs) {
 
 import { getTodos } from "~/utils/todoUtils";
 import type { Todo } from "~/types/todo";
+import { useState } from "react";
 
 export async function clientLoader() {
   const todos: Todo[] = getTodos();
@@ -20,12 +21,21 @@ export async function clientLoader() {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const todos: Todo[] = loaderData ?? [];
+  const [filter, setFilter] = useState<"all" | "completed" | "pending">("all");
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "all") return true;
+
+    return filter === "completed"
+      ? todo.status === "completed"
+      : todo.status === "pending";
+  });
 
   return (
     <div id="wrapper">
       <Navbar />
-      <StatusFilter />
-      <TodoList todos={todos} />
+      <StatusFilter filter={filter} setFilter={setFilter} />
+      <TodoList todos={filteredTodos} />
     </div>
   );
 }

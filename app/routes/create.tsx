@@ -18,9 +18,14 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
     return "Invalid Due Date";
   }
 
-  const now = new Date();
-  if (dueAt <= now) {
-    return "Due date must be in the future";
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const due = new Date(dueAt);
+  due.setHours(0, 0, 0, 0);
+
+  if (due < today) {
+    return "Due date must be today or later";
   }
 
   const newTodo: Todo = {
