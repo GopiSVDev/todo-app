@@ -10,7 +10,6 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 
   const statusColors: Record<string, string> = {
     pending: "orange",
-
     completed: "green",
   };
 
@@ -50,7 +49,19 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <button>Edit</button>
         </Link>
 
-        <Form method="post" action={`/todos/${id}/delete`}>
+        <Form
+          method="post"
+          action={`/todos/${id}/delete`}
+          onSubmit={(e) => {
+            const confirmed = window.confirm(
+              "Are you sure you want to delete this todo?"
+            );
+
+            if (!confirmed) {
+              e.preventDefault();
+            }
+          }}
+        >
           <button>Delete</button>
         </Form>
       </div>

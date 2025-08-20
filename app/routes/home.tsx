@@ -22,18 +22,21 @@ export async function clientLoader() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const todos: Todo[] = loaderData ?? [];
   const [filter, setFilter] = useState<"all" | "completed" | "pending">("all");
+  const [query, setQuery] = useState("");
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === "all") return true;
+  const filteredTodos = todos
+    .filter((todo) => {
+      if (filter === "all") return true;
 
-    return filter === "completed"
-      ? todo.status === "completed"
-      : todo.status === "pending";
-  });
+      return filter === "completed"
+        ? todo.status === "completed"
+        : todo.status === "pending";
+    })
+    .filter((todo) => todo.title.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <div id="wrapper">
-      <Navbar />
+      <Navbar query={query} setQuery={setQuery} />
       <StatusFilter filter={filter} setFilter={setFilter} />
       <TodoList todos={filteredTodos} />
     </div>
